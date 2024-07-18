@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit a listing</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+
+  <h1>Edit a listing</h1>
+  <form action="/listings/<%=listing._id%>?_method=PUT" method="POST">
+    <label for="street-address">Street Address:</label>
+    <input type="text" name="streetAddress" id="street-address" value="<%=listing.streetAddress%>" />
+    <label for="city">City:</label>
+    <input type="text" name="city" id="city" value="<%=listing.city%>" />
+    <label for="price">Price:</label>
+    <input type="number" name="price" id="price" min="0" value="<%=listing.price%>" />
+    <label for="size">Size:</label>
+    <input type="number" name="size" id="size" min="0" value="<%=listing.size%>" />
+    <button type="submit">Edit Listing</button>
+
+    <% if (typeof errorMessage !== 'undefined') { %>
+      <p class="error"><%= errorMessage %></p>
+    <% } %>
+  </form>
+</body>
+</html>

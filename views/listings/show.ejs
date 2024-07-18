@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= listing.name %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>A listing in <%= listing.city %></h1>
+
+    <h2>Details</h2>
+    <p>House Size: <%= listing.size %> sq ft</p>
+    <p>Price: $<%= listing.price %></p>
+    <p>Street address: <%= listing.streetAddress %></p>
+
+    <!-- Check if the logged in user (user) matches the listing owner (listing.owner) -->
+    <% if (listing.owner._id.equals(user._id)) { %>
+      <!-- Delete -->
+      <form action="/listings/<%=listing._id%>?_method=DELETE" method="POST">
+        <button type="submit">Delete listing</button>
+      </form>
+      <!-- Edit -->
+      <a href="/listings/<%=listing._id%>/edit">Edit listing</a>
+    <% } %>
+
+    <h2>Favorites</h2>
+    <p>Favorited by <%= listing.favoritedByUsers.length %> people.</p>
+    <% if (userHasFavorited) { %>
+      <p>You have favorited this listing</p>
+      <form
+        action="/listings/<%= listing._id %>/favorited-by/<%= user._id %>?_method=DELETE"
+        method="POST"
+      >
+        <button type="submit">♥</button>
+      </form>
+    <% } else { %>
+      <form
+        action="/listings/<%= listing._id %>/favorited-by/<%= user._id %>"
+        method="POST"
+      >
+        <button type="submit">♡</button>
+      </form>
+    <% } %>
+
+  </body>
+</html>
