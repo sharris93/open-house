@@ -8,7 +8,7 @@
 </head>
 <body>
   <%- include('./partials/_navbar.ejs') %>
-  <img src="/public/images/img1.png" alt="Test">
+  <img src="<%= imagePrefix %>/images/img1.png" alt="Test">
   <% if (user) { %>
     <h1>Welcome to the app, <%= user.username %>!</h1>
     <p>
